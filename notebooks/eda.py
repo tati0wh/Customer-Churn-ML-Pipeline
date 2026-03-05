@@ -19,11 +19,13 @@ import math
 
 """# Carregamento dos dados"""
 
-#train = load_train_data()
+train = pd.read_csv(
+    "../data/raw/train_churn_.csv",
+    sep=';',
+    encoding='utf-8'
+)
 
-train = pd.read_csv("/content/train_churn_.csv", sep=';', encoding='utf-8')
-
-train
+train.head()
 
 """# Diagnóstico do dataset"""
 
