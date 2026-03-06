@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""eda.ipynb
-
 # Bibliotecas
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,14 +7,14 @@ import math
 import plotly.express as px
 import math
 
-"""# Carregamento dos dados"""
+# Carregamento dos dados
 
 from src.data.load_data import load_train_data
 
 train = load_train_data()
 train.head()
 
-"""# Diagnóstico do dataset"""
+# Diagnóstico do dataset
 
 def diagnostico_dataset(df):
 
@@ -181,7 +176,7 @@ colunas_boxplot = {
 
 plot_boxplots(train, colunas_boxplot)
 
-"""# Distribuição do target"""
+# Distribuição do target
 
 categoricas = train.select_dtypes(include=['object', 'category']).columns
 categoricas = [c for c in categoricas if c != 'FaturaMensal']
@@ -194,7 +189,7 @@ plt.ylabel('Quantidade')
 
 plt.show()
 
-"""# Variáveis categóricas com relação ao churn"""
+# Variáveis categóricas com relação ao churn
 
 categoricas = train.select_dtypes(include=['object', 'category']).columns
 categoricas = [c for c in categoricas if c not in ['FaturaMensal', 'FaturaTotal']]
@@ -236,7 +231,7 @@ for j in range(len(categoricas), len(axs)):
 
 plt.show()
 
-"""# Variáveis numéricas com relação ao churn"""
+# Variáveis numéricas com relação ao churn
 
 # criar versão numérica temporária
 train['FaturaTotal_num'] = pd.to_numeric(train['FaturaTotal'], errors='coerce')
