@@ -73,3 +73,62 @@ def preencher_media(df, coluna):
     media = df[coluna].mean()
     df[coluna].fillna(media, inplace=True)
     return df
+
+# normalização e seleção numerica
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder
+
+def encode_categorical_features(df):
+
+    colunas_categoricas = [
+        'genero',
+        'MultiLinhas',
+        'ServicoInternet',
+        'ServicoSegurancaCyber',
+        'ServicoBackup',
+        'SeguroDispositivos',
+        'ServicoSuporteTecnico',
+        'StreamingTV',
+        'StreamingFilmes',
+        'Contrato',
+        'MetodoPagamento'
+    ]
+
+    encoder = OneHotEncoder()
+
+    encoded_data = encoder.fit_transform(df[colunas_categoricas])
+
+    encoded_df = pd.DataFrame(
+        encoded_data.toarray(),
+        columns=encoder.get_feature_names_out(colunas_categoricas)
+    )
+
+    df = df.reset_index(drop=True)
+    encoded_df = encoded_df.reset_index(drop=True)
+
+    df_merged = pd.concat([df, encoded_df], axis=1)
+
+    df_merged = df_merged.drop(columns=colunas_categoricas)
+
+    return df_merged
+
+# normalização e seleção numerica
+from sklearn.preprocessing import Normalizer
+
+def normalize_numeric_features(df):
+
+    colunas_numericas_grandes = [
+        'tempoDeServico',
+        'FaturaMensal',
+        'FaturaTotal',
+        'NumTickets',
+        'NumTicketsTecnico'
+    ]
+
+    normalizer = Normalizer()
+
+    df[colunas_numericas_grandes] = normalizer.fit_transform(
+        df[colunas_numericas_grandes]
+    )
+
+    return df
